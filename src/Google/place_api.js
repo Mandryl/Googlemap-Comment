@@ -1,6 +1,7 @@
 const axios = require("axios");
 const auth = require("./../authentication");
 
+
 exports.googleMap_placeSearch_api = async(landmark) => {
     const api_key = auth.get_googleMaps_env().api_key;
     const placeSearch = {
@@ -39,21 +40,19 @@ exports.googleMap_placePhoto_api = async(photoreference) => {
     const api_key = auth.get_googleMaps_env().api_key;
     const placePhoto = {
         method: 'get',
-        url: 'https://maps.googleapis.com/maps/api/place/photo?',
+        url: 'https://maps.googleapis.com/maps/api/place/photo',
         params: {
             maxwidth:400,
-            maxheight:400,
             photo_reference:photoreference,
             key: api_key,
+        },  
+        headers: {
+          'Content-Type': 'image/png'
         },
-        headers: { 
-        },
-        create:{
-            responseType: 'arraybuffer',
-        }
+        responseType: 'arraybuffer',
     };
     
     const response = await axios(placePhoto);
-    const raw = Buffer.from(response.data).toString('base64');
-    return raw;
+    return response;
 }
+
