@@ -1,8 +1,32 @@
 const axios = require("axios");
 const auth = require("./../authentication");
 
+exports.createLandmarkInfo = async () => {
+    const arry = []
+    const photos = []
+    const placeSearch = await googleMap_placeSearch_api("東京駅");
+    
+    for(let i = 0; i < placeSearch.candidates.length; i++){
+        const placeDetail = await googleMap_placeDetail_api(placeSearch.candidates[i].place_id);
 
-exports.googleMap_placeSearch_api = async(landmark) => {
+        for(let j = 0; j < placeDetail.result.reviews.length; j++){
+            arry.push({
+                reviewComment: placeDetail.result.reviews[j].text
+            })
+        }
+        for(let k = 0; k < placeDetail.result.photos.length; k++){
+            const placePhoto = await googleMap_placePhoto_api(placeDetail.result.photos[k].photo_reference);
+            photos.push({
+                photo: placePhoto.data
+            })
+            // const extensions = placePhoto.headers['content-type'].toString().replace("image/","");
+            // fs.writeFileSync(`hoge${k}.${extensions}`,placePhoto.data , "base64");
+        }
+    }
+    return {arry, photos}
+}
+
+googleMap_placeSearch_api = async(landmark) => {
     const api_key = auth.get_googleMaps_env().api_key;
     const placeSearch = {
         method: 'get',
@@ -18,16 +42,16 @@ exports.googleMap_placeSearch_api = async(landmark) => {
     return response.data;
 }
 
-exports.googleMap_placeDetail_api = async(placeid) => {
+googleMap_placeDetail_api = async(placeid) => {
     const api_key = auth.get_googleMaps_env().api_key;
     const placeDetail = {
         method: 'get',
         url: 'https://maps.googleapis.com/maps/api/place/details/json?fields=name%2Crating%2Cwebsite%2Creviews%2Cphoto',
         params: {
             place_id:placeid,
-            key: api_key,
             reviews_sort:'most_relevant',
-            language:'ja'
+            language:'ja',
+            key: api_key,
         },
         headers: { }
     };
@@ -36,7 +60,7 @@ exports.googleMap_placeDetail_api = async(placeid) => {
     return response.data;
 }
 
-exports.googleMap_placePhoto_api = async(photoreference) => {
+googleMap_placePhoto_api = async(photoreference) => {
     const api_key = auth.get_googleMaps_env().api_key;
     const placePhoto = {
         method: 'get',
@@ -47,7 +71,7 @@ exports.googleMap_placePhoto_api = async(photoreference) => {
             key: api_key,
         },  
         headers: {
-          'Content-Type': 'image/png'
+            'Content-Type': 'image/png'
         },
         responseType: 'arraybuffer',
     };
@@ -55,4 +79,3 @@ exports.googleMap_placePhoto_api = async(photoreference) => {
     const response = await axios(placePhoto);
     return response;
 }
-
