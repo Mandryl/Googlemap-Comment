@@ -1,6 +1,7 @@
 const axios = require("axios");
 const auth = require("./../authentication");
 
+
 exports.googleMap_placeSearch_api = async(landmark) => {
     const api_key = auth.get_googleMaps_env().api_key;
     const placeSearch = {
@@ -17,19 +18,41 @@ exports.googleMap_placeSearch_api = async(landmark) => {
     return response.data;
 }
 
-exports.googleMap_placeDetail_api = () => {
+exports.googleMap_placeDetail_api = async(placeid) => {
+    const api_key = auth.get_googleMaps_env().api_key;
     const placeDetail = {
         method: 'get',
-        url: 'https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name%2Crating%2Cformatted_phone_number&key=AIzaSyCPOk9HBGQZr8FXMO9Rp5y7QEvXWBIORzg',
+        url: 'https://maps.googleapis.com/maps/api/place/details/json?fields=name%2Crating%2Cwebsite%2Creviews%2Cphoto',
+        params: {
+            place_id:placeid,
+            key: api_key,
+            reviews_sort:'most_relevant',
+            language:'ja'
+        },
         headers: { }
     };
     
-    axios(placeDetail)
-    .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        return response.data
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+    const response = await axios(placeDetail);
+    return response.data;
 }
+
+exports.googleMap_placePhoto_api = async(photoreference) => {
+    const api_key = auth.get_googleMaps_env().api_key;
+    const placePhoto = {
+        method: 'get',
+        url: 'https://maps.googleapis.com/maps/api/place/photo',
+        params: {
+            maxwidth:400,
+            photo_reference:photoreference,
+            key: api_key,
+        },  
+        headers: {
+          'Content-Type': 'image/png'
+        },
+        responseType: 'arraybuffer',
+    };
+    
+    const response = await axios(placePhoto);
+    return response;
+}
+
