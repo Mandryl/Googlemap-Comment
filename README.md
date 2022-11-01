@@ -19,7 +19,7 @@ https://developers.google.com/maps?hl=ja
 ■仕様
 - [PlaceReview](https://developers.google.com/maps/documentation/places/web-service/details#PlaceReview)
     - 最大取得件数5件(5件以上取得する場合は、Webスクレイピングになる)
-    - 口こみは関連性と新しい順で取得することができる(アルゴリズムはブラックボックス)
+    - 口コミは関連性と新しい順で取得することができる(アルゴリズムはブラックボックス)
     - コメントのいいねは取得できない。
 - [PlacePhoto](https://developers.google.com/maps/documentation/places/web-service/details#PlacePhoto)
      - 最大取得件数10件(10件以上取得する場合は、Webスクレイピングになる)
