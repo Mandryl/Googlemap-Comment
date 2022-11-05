@@ -6,10 +6,16 @@ if (env.error) {
 }
 
 const main = async () => {
-    const {arry, photos,lat,lng} = await placeAPI.createLandmarkInfo("東京都八王子市明神町３丁目２７");
+    const {arry, photos,lat,lng} = await placeAPI.createLandmarkInfo("東京駅");
     const nearby = await placeAPI.createNearbyLandmarkInfo(lat,lng);
 
-    if(arry.reviewComment.includes(null) || photos.photo.includes(null)) throw new Error("口コミ、または写真がありません");
+    arry.forEach(input => {
+        if(input.reviewComment == null) throw new Error("口コミ、または写真がありません");
+    })
+
+    photos.forEach(input => {
+        if(input.photo == null) throw new Error("口コミ、または写真がありません");
+    })
 
     console.log(arry);
     console.log(photos);
@@ -17,3 +23,6 @@ const main = async () => {
 }
 
 main();
+// 35.6578931, 139.3429495
+// 35.68123620000001, 139.7671248
+// 東京都八王子市明神町３丁目２７
