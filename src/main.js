@@ -6,9 +6,10 @@ if (env.error) {
 }
 
 const main = async () => {
-    const {arry, photos} = await placeAPI.createLandmarkInfo()
-    // console.log(photos);
-    // console.log(arry);
+    const {arry, photos,lat,lng} = await placeAPI.createLandmarkInfo("八王子駅");
+    const nearby = await placeAPI.createNearbyLandmarkInfo(lat,lng);
+    console.log(nearby);
+    console.log(arry);
 }
 
 main();
