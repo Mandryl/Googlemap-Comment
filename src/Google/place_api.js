@@ -42,7 +42,7 @@ exports.createLandmarkInfo = async (input) => {
     let lat = ""
     let lng = ""
     const placeSearch = await googleMap_placeSearch_api(input);
-    console.log(placeSearch.geometry);
+    console.log(placeSearch);
 
     for(let i = 0; i < placeSearch.candidates.length; i++){
         const placeDetail = await googleMap_placeDetail_api(placeSearch.candidates[i].place_id);
@@ -51,9 +51,16 @@ exports.createLandmarkInfo = async (input) => {
         lng = placeSearch.candidates[i].geometry.location.lng
 
         for(let j = 0; j < 3; j++){
-            arry.push({
-                reviewComment: placeDetail.result.reviews[j].text
-            })
+            if(!placeDetail.result.reviews){
+                arry.push({
+                    reviewComment: null
+                })
+                console.log("口コミがありません");
+            } else{
+                arry.push({
+                    reviewComment: placeDetail.result.reviews[j].text
+                })
+            }
         }
         for(let k = 0; k < 5; k++){
             const placePhoto = await googleMap_placePhoto_api(placeDetail.result.photos[k].photo_reference);
@@ -67,7 +74,7 @@ exports.createLandmarkInfo = async (input) => {
     return {arry, photos,lat,lng}
 }
 
-googleMap_placeSearch_api = async(landmarkInfo, latLng) => {
+googleMap_placeSearch_api = async(landmarkInfo) => {
     const api_key = auth.get_googleMaps_env().api_key;
     if(landmarkInfo !== null){
         const placeSearch = {
@@ -77,21 +84,6 @@ googleMap_placeSearch_api = async(landmarkInfo, latLng) => {
                 input: landmarkInfo,
                 inputtype: "textquery",
                 fields: `place_id,rating,geometry,formatted_address`,
-                key: api_key
-            },
-            headers: {}
-        };
-        const response = await axios(placeSearch);
-        return response.data;
-    } else{
-        const placeSearch = {
-            method: 'get',
-            url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
-            params: {
-                input: "",
-                inputtype: "textquery",
-                fields: `place_id,rating,geometry,formatted_address`,
-                locationbias: `point%3A${latLng}`,
                 key: api_key
             },
             headers: {}
