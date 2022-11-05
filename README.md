@@ -11,8 +11,6 @@ https://developers.google.com/maps?hl=ja
     - GeoCodingAPIを利用する
     - PlaceAPIからは取得ができない
 - ランドマークの情報から半径Xm以内の場所を抽出できるか検証する
-    - 1リクエストで取得できる件数は20件。追加で20件取得する場合は、nextpagetokenを指定してリクエストを投げる必要あり。（最大取得件数は60件まで）
-    - 現在地から5km以内の場所を取得可能（所得できる場所はGoogle indexの場所ランキングや他の要因によって決まる。）
 - 赤坂、箱崎など、同じ地名が複数ある場合の処理
 
 ## Google Detail API Request List
@@ -31,6 +29,15 @@ https://developers.google.com/maps?hl=ja
 ### NearBySearch
 ■概要
 [Nearby Search](https://developers.google.com/maps/documentation/places/web-service/search-nearby) ：指定されたエリア内の場所を検索できます。キーワードを指定するか、検索する場所のタイプを指定して、検索リクエストを絞り込むことができる.
+
+■仕様
+- 1リクエストで20件取得できる。3ページに渡って最大60件まで取得でき、その場合はpagetokenを指定して次の20件を取得する。
+- 現在地から5km以内の場所を取得可能（取得場所はGoogleインデックスのランキング、世界的な人気、その他要素によって決定される）
+
+### Find Place
+- 箱崎、赤坂の場所検索をすると、どちらも東京の住所が返ってくることを確認した。
+- 地名、及び住所からの検索は可能だが、緯度・経度から場所を明確にする場合はGeocoding APIを使う必要がある。
+    - 例：八王子駅（JRと京王）の場合、駅名は同じなのに異なる場所に位置するため、正確な情報を取得できない。
 
 ## 参考資料
 - [Google Places APIを使って地図上の口コミを分析する方法](https://gaaaon.jp/blog/google_map_api)
