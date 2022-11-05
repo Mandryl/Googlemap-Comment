@@ -10,11 +10,11 @@ const main = async () => {
     const nearby = await placeAPI.createNearbyLandmarkInfo(lat,lng);
 
     arry.forEach(input => {
-        if(input.reviewComment == null) throw new Error("口コミ、または写真がありません");
+        if(input.reviewComment == null) throw new Error("口コミがありません");
     })
 
     photos.forEach(input => {
-        if(input.photo == null) throw new Error("口コミ、または写真がありません");
+        if(input.photo == null) throw new Error("写真がありません");
     })
 
     console.log(arry);
