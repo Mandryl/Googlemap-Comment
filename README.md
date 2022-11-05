@@ -7,11 +7,7 @@ https://developers.google.com/maps?hl=ja
 - PlaceIDを取得しないとレビューと写真が取れない
 
 ## Todo
-- 座標から取得ができるようにする（フロントで座標取得の処理を実装しているため、バックでは不要）
-    - GeoCodingAPIを利用する
-    - PlaceAPIからは取得ができない
-- ランドマークの情報から半径Xm以内の場所を抽出できるか検証する
-- 赤坂、箱崎など、同じ地名が複数ある場合の処理
+- Geocoding APIを使って緯度・経度から場所を検索する。
 
 ## Google Detail API Request List
 [Place API](https://outscraper.com/ja/google-maps-reviews-api/)
