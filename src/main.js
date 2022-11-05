@@ -7,8 +7,8 @@ if (env.error) {
 
 const main = async () => {
     const {arry, photos} = await placeAPI.createLandmarkInfo()
-    console.log(photos);
-    console.log(arry);
+    // console.log(photos);
+    // console.log(arry);
 }
 
 main();
