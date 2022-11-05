@@ -76,7 +76,6 @@ exports.createLandmarkInfo = async (input) => {
 
 googleMap_placeSearch_api = async(landmarkInfo) => {
     const api_key = auth.get_googleMaps_env().api_key;
-    if(landmarkInfo !== null){
         const placeSearch = {
             method: 'get',
             url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
@@ -90,7 +89,6 @@ googleMap_placeSearch_api = async(landmarkInfo) => {
         };
         const response = await axios(placeSearch);
         return response.data;
-    }
 }
 
 googleMap_placeDetail_api = async(placeid) => {
