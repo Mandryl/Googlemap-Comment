@@ -11,6 +11,7 @@ https://developers.google.com/maps?hl=ja
     - GeoCodingAPIを利用する
     - PlaceAPIからは取得ができない
 - ランドマークの情報から半径Xm以内の場所を抽出できるか検証する
+- 1リクエストで取得件数は20件。追加で20件取得する場合は、nextpagetokenを指定してリクエストを投げる必要あり。（最大取得件数は60件まで）
 - 赤坂、箱崎など、同じ地名が複数ある場合の処理
 
 ## Google Detail API Request List
