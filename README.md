@@ -7,7 +7,7 @@ https://developers.google.com/maps?hl=ja
 - PlaceIDを取得しないとレビューと写真が取れない
 
 ## Todo
-- Geocoding APIを使って緯度・経度から場所を検索する。
+- 
 
 ## Google Detail API Request List
 [Place API](https://outscraper.com/ja/google-maps-reviews-api/)
