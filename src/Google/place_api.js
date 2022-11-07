@@ -76,19 +76,19 @@ exports.createLandmarkInfo = async (input) => {
 
 googleMap_placeSearch_api = async(landmarkInfo) => {
     const api_key = auth.get_googleMaps_env().api_key;
-        const placeSearch = {
-            method: 'get',
-            url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
-            params: {
-                input: landmarkInfo,
-                inputtype: "textquery",
-                fields: `place_id,rating,geometry,formatted_address`,
-                key: api_key
-            },
-            headers: {}
-        };
-        const response = await axios(placeSearch);
-        return response.data;
+    const placeSearch = {
+        method: 'get',
+        url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
+        params: {
+            input: landmarkInfo,
+            inputtype: "textquery",
+            fields: `place_id,rating,geometry,formatted_address`,
+            key: api_key
+        },
+        headers: {}
+    };
+    const response = await axios(placeSearch);
+    return response.data;
 }
 
 googleMap_placeDetail_api = async(placeid) => {
@@ -105,7 +105,6 @@ googleMap_placeDetail_api = async(placeid) => {
         },
         headers: {}
     };
-    
     const response = await axios(placeDetail);
     return response.data;
 }
@@ -125,7 +124,6 @@ googleMap_placePhoto_api = async(photoreference) => {
         },
         responseType: 'arraybuffer',
     };
-    
     const response = await axios(placePhoto);
     return response;
 }
