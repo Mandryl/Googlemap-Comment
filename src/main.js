@@ -1,4 +1,4 @@
-const placeAPI = require("./Google/place_api");
+const placeAPI = require("./google/place_api");
 const env = require('dotenv').config();
 
 if (env.error) {
