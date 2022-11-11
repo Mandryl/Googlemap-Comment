@@ -4,7 +4,8 @@
   "description": "Google Platform Map APIの解放　　\r https://developers.google.com/maps?hl=ja",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodem app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
