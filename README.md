@@ -1,15 +1,20 @@
 # Googlemap-Comment
-## 事前準備
-Google Platform Map APIを使えるようにする
+## Project setup
+### 1. Google Platform Map API Setup
 https://developers.google.com/maps?hl=ja
 
-## 実装メモ
-- PlaceIDを取得しないとレビューと写真が取れない
+## Glitch Server
+- axios to ver 0.27.2
+     - With axios ver1.x, Glitch causes an error because import is specified on the nodemodule side.
+```
+ "axios": "^0.27.2"
+```
+- .env setup
+```
+API_KEY:'xxxx'
+```
 
-## Google Detail API Request List
-[Place API](https://outscraper.com/ja/google-maps-reviews-api/)
-
-### PlaceDetail
+## Google Place API Specification
 ■仕様
 - [PlaceReview](https://developers.google.com/maps/documentation/places/web-service/details#PlaceReview)
     - 最大取得件数5件(5件以上取得する場合は、Webスクレイピングになる)
@@ -18,20 +23,8 @@ https://developers.google.com/maps?hl=ja
 - [PlacePhoto](https://developers.google.com/maps/documentation/places/web-service/details#PlacePhoto)
      - 最大取得件数10件(10件以上取得する場合は、Webスクレイピングになる)
      - Google Map(ALL)から取得されている
+- [Nearby Search](https://developers.google.com/maps/documentation/places/web-service/search-nearby) ：指定されたエリア内の場所を検索できます。キーワードを指定するか、検索する場所のタイプを指定して、検索リクエストを絞り込むことができる.
 
-### NearBySearch
-■概要
-[Nearby Search](https://developers.google.com/maps/documentation/places/web-service/search-nearby) ：指定されたエリア内の場所を検索できます。キーワードを指定するか、検索する場所のタイプを指定して、検索リクエストを絞り込むことができる.
-
-■仕様
-- 最大60件取得可能、1リクエストで20件取得できる。
-    - 20件のうち、初めと最後のデータは立地場所に関する情報になる。 （例：東京駅の場合、JSON[0]は東京、JSON[19]は千代田区）
-- 現在地から5km以内の場所を取得可能（取得場所はGoogleインデックスのランキング、世界的な人気、その他要素によって決定される）
-
-###  PlaceSearch
-- 箱崎、赤坂の場所検索をすると、どちらも東京の住所が返ってくることを確認した。
-- 地名、及び住所からの検索は可能である。緯度・経度から地名の場所をはっきりさせる場合は、Geocoding APIを使う必要がある。
-    - 例：八王子駅（JRと京王）の場合、駅名は同じなのに異なる場所に位置するため、正確な情報を取得できない。
-
-## 参考資料
+## Reference
+- [Place API](https://outscraper.com/ja/google-maps-reviews-api/)
 - [Google Places APIを使って地図上の口コミを分析する方法](https://gaaaon.jp/blog/google_map_api)
