@@ -3,21 +3,22 @@ const auth = require("./../authentication");
 
 exports.createNearbyLandmarkInfo = async (lat, lng) => {
     const arry = []
-    const photos = []
 
     // nearbySearchAPI Call
     const nearbySearch = await googleMap_nearbySearch_api(lat, lng)
-    const nearbySearch_data = nearbySearch.data;
-    const nearbySearch_name = nearbySearch_data['results'];
-    nearbySearch_name.forEach(input => {
-        // 1行目のデータを取る
-    })
 
-    // placeSearch_api
-    const placeSearch = await googleMap_placeSearch_api(`{友永さん}`);
+    // 周辺情報のJSON[0]は東京、JSON[19]は千代田区（東京駅の場合）になるため削除
+    nearbySearch.data.results.shift()
+    nearbySearch.data.results.pop()
+
+    // 1行目のデータを取る
+    const name = nearbySearch.data.results[0].name
+
+    // 1行目の取得データに対する口コミをplaceSearch_apiで取得する
+    const placeSearch = await googleMap_placeSearch_api(name);
     for(let i = 0; i < placeSearch.candidates.length; i++){
         const placeDetail = await googleMap_placeDetail_api(placeSearch.candidates[i].place_id);
-        for(let j = 0; j < placeDetail.result.reviews.length; j++){
+        for(let j = 0; j < 1; j++){
             arry.push({
                 reviewComment: placeDetail.result.reviews[j].text
             })
@@ -32,28 +33,36 @@ exports.createNearbyLandmarkInfo = async (lat, lng) => {
         //     // fs.writeFileSync(`hoge${k}.${extensions}`,placePhoto.data , "base64");
         // }
     }
-    return {arry, photos}
+    return {arry}
 }
 
 exports.createLandmarkInfo = async (input) => {
     const arry = []
     const photos = []
-    const latlng = []
+    let lat = ""
+    let lng = ""
     const placeSearch = await googleMap_placeSearch_api(input);
     console.log(placeSearch);
 
     for(let i = 0; i < placeSearch.candidates.length; i++){
         const placeDetail = await googleMap_placeDetail_api(placeSearch.candidates[i].place_id);
 
-        const lat = placeSearch.candidates[i].geometry.location.lat
-        const lng = placeSearch.candidates[i].geometry.location.lng
+        lat = placeSearch.candidates[i].geometry.location.lat
+        lng = placeSearch.candidates[i].geometry.location.lng
 
-        for(let j = 0; j < placeDetail.result.reviews.length; j++){
-            arry.push({
-                reviewComment: placeDetail.result.reviews[j].text
-            })
+        for(let j = 0; j < 3; j++){
+            if(!placeDetail.result.reviews){
+                arry.push({
+                    reviewComment: null
+                })
+                console.log("口コミがありません");
+            } else{
+                arry.push({
+                    reviewComment: placeDetail.result.reviews[j].text
+                })
+            }
         }
-        for(let k = 0; k < placeDetail.result.photos.length; k++){
+        for(let k = 0; k < 5; k++){
             const placePhoto = await googleMap_placePhoto_api(placeDetail.result.photos[k].photo_reference);
             photos.push({
                 photo: placePhoto.data
@@ -65,13 +74,13 @@ exports.createLandmarkInfo = async (input) => {
     return {arry, photos,lat,lng}
 }
 
-googleMap_placeSearch_api = async(landmark) => {
+googleMap_placeSearch_api = async(landmarkInfo) => {
     const api_key = auth.get_googleMaps_env().api_key;
     const placeSearch = {
         method: 'get',
         url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
         params: {
-            input: landmark,
+            input: landmarkInfo,
             inputtype: "textquery",
             fields: `place_id,rating,geometry,formatted_address`,
             key: api_key
@@ -96,7 +105,6 @@ googleMap_placeDetail_api = async(placeid) => {
         },
         headers: {}
     };
-    
     const response = await axios(placeDetail);
     return response.data;
 }
@@ -116,7 +124,6 @@ googleMap_placePhoto_api = async(photoreference) => {
         },
         responseType: 'arraybuffer',
     };
-    
     const response = await axios(placePhoto);
     return response;
 }
