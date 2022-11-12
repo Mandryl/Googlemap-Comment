@@ -8,6 +8,7 @@ const env = require('dotenv').config();
 if (env.error) {
   console.log("failed to load env file");
 }
+
 db.init().then(()=>{
   logger.info("DB init complete");
 });
