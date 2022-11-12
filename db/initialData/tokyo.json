@@ -1,0 +1,72 @@
+[
+  {
+    "id": "S000001",
+    "area":"tokyo",
+    "type": "start",
+    "description": "Sample Sample",
+    "name": "Hartono Indonesian Restaurant",
+    "position": {
+      "lat": 35.689878167434216,
+      "lng": 139.69210069802853
+    },
+    "quiz": "クイズチームが作った問題を1つ選んで掲載",
+    "quizImage": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen_quiz.jpg",
+    "image": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen_quiz.jpg"
+  },
+  {
+    "id": "S000002",
+    "area":"tokyo",
+    "type": "midpoint",
+    "description": "地点の詳細のテキスト",
+    "name": "地点のタイトル1",
+    "position": {
+      "lat": 35.6915718,
+      "lng": 139.6970973
+    },
+    "quiz": "クイズチームが作った問題を1つ選んで掲載",
+    "quizImage": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen_quiz.jpg",
+    "image": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen.jpg"
+  },
+  {
+    "id": "S000003",
+    "area":"tokyo",
+    "type": "midpoint",
+    "description": "地点の詳細のテキスト",
+    "name": "地点のタイトル1",
+    "position": {
+      "lat": 35.6915718,
+      "lng": 139.6970973
+    },
+    "quiz": "クイズチームが作った問題を1つ選んで掲載",
+    "quizImage": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen_quiz.jpg",
+    "image": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen.jpg"
+  },
+  {
+    "id": "S000004",
+    "area":"tokyo",
+    "type": "midpoint",
+    "description": "地点の詳細のテキスト",
+    "position": {
+      "lat": 35.6915718,
+      "lng": 139.6970973
+    },
+    "name": "地点のタイトル1",
+    "quiz": "クイズチームが作った問題を1つ選んで掲載",
+    "quizImage": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen_quiz.jpg",
+    "image": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen.jpg"
+  },
+  {
+    "id": "S000005",
+    "area":"tokyo",
+    "type": "midpoint",
+    "description": "地点の詳細のテキスト",
+    "position": {
+      "lat": 35.6915718,
+      "lng": 139.6970973
+    },
+    "name": "地点のタイトル1",
+    "quiz": "クイズチームが作った問題を1つ選んで掲載",
+    "quizImage": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen_quiz.jpg",
+    "image": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen.jpg"
+  }
+]
