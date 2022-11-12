@@ -1,38 +1,20 @@
 const axios = require("axios");
 const auth = require("../common/authentication");
-
+ 
 exports.createNearbyLandmarkInfo = async (lat, lng) => {
     const arry = []
     const photos = []
-
     // nearbySearchAPI Call
     const nearbySearch = await googleMap_nearbySearch_api(lat, lng)
-    const nearbySearch_data = nearbySearch.data;
-    const nearbySearch_name = nearbySearch_data['results'];
-    nearbySearch_name.forEach(input => {
-        // 1行目のデータを取る
-    })
-
-    // placeSearch_api
-    const placeSearch = await googleMap_placeSearch_api(`{友永さん}`);
-    for(let i = 0; i < placeSearch.candidates.length; i++){
-        const placeDetail = await googleMap_placeDetail_api(placeSearch.candidates[i].place_id);
-        for(let j = 0; j < placeDetail.result.reviews.length; j++){
-            arry.push({
-                reviewComment: placeDetail.result.reviews[j].text
-            })
-        }
-        // 近隣の口コミ情報＋写真が欲しい場合は以下のスクリプトを使う
-        // for(let k = 0; k < placeDetail.result.photos.length; k++){
-        //     const placePhoto = await googleMap_placePhoto_api(placeDetail.result.photos[k].photo_reference);
-        //     photos.push({
-        //         photo: placePhoto.data
-        //     })
-        //     // const extensions = placePhoto.headers['content-type'].toString().replace("image/","");
-        //     // fs.writeFileSync(`hoge${k}.${extensions}`,placePhoto.data , "base64");
-        // }
+    nearbySearch.data.results.shift()
+    nearbySearch.data.results.pop()    
+    // 周辺情報のJSON[0]は東京、JSON[19]は千代田区（東京駅の場合）になるため削除
+ 
+    for(let i = 0;i < 3;i++){
+        arry.push(nearbySearch.data.results[i].name);
     }
-    return {arry, photos}
+
+    return arry;
 }
 
 exports.createLandmarkInfo = async (input) => {
@@ -126,8 +108,8 @@ googleMap_nearbySearch_api = async(lat, lng) => {
         url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
         params: {
             location: `${lat},${lng}`,
-            radius:100,
-            language: "ja",
+            radius:50,
+            language: "en",
             key: api_key
         },
         headers: {}
