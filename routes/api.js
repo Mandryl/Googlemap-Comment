@@ -24,8 +24,16 @@ router.get('/api/quiz/:id', async (req, res) => {
                 photos:[],
                 reviews:""
             };
-            // hints add
+            // hints get
             const {arry, photos,lat,lng} = await placeAPI.createLandmarkInfo(quizdataset[i].name);
+            arry.forEach(input => {
+                if(input.reviewComment == null) throw new Error("口コミがありません");
+            })
+            photos.forEach(input => {
+                if(input.photo == null) throw new Error("写真がありません");
+            })
+
+            // hints push
             hintsArry["photos"] = photos;
             hintsArry["reviews"] = arry;
             quizdataset["hints"] = hintsArry;
