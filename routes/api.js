@@ -28,6 +28,7 @@ router.get('/api/quiz/:id', async (req, res) => {
             // hints get
             // const {arry, photos,latlng} = await placeAPI.createLandmarkInfo(spots[i].name);
             const {arry, photos} = await placeAPI.createLandmarkInfo(spots[i].name);
+            const nearby = await placeAPI.createNearbyLandmarkInfo(spots[i].position.lat,spots[i].position.lng)
             arry.forEach(input => {
                 if(input.reviewComment === null) throw new Error("口コミがありません");
             })
@@ -39,13 +40,18 @@ router.get('/api/quiz/:id', async (req, res) => {
             hintsArry["photos"] = photos;
             hintsArry["reviews"] = arry;
             spots[i]["hints"] = hintsArry;
+
+            // nearby search 
+            spots[i]["nearby"] = nearby;
+            console.log(nearby);
         }
         const route = await directionsAPI.calculateRoute(spots);
         const quizdataset = { 
             spots: spots,
             routes: route.data
         }
-        console.log(quizdataset)
+        
+        console.log(quizdataset);
         // quizdataset.push["spots"] = spots;
         // quizdataset["route"] = route;
         res.status(200).json(quizdataset);

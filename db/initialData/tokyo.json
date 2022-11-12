@@ -4,7 +4,7 @@
     "area":"tokyo",
     "type": "start",
     "description": "Sample Sample",
-    "name": "Hartono Indonesian Restaurant",
+    "name": "Tokyo Metropolitan Government Building",
     "position": {
       "lat": 35.689878167434216,
       "lng": 139.69210069802853
@@ -18,7 +18,7 @@
     "area":"tokyo",
     "type": "midpoint",
     "description": "地点の詳細のテキスト",
-    "name": "地点のタイトル1",
+    "name": "Tokyo Metropolitan Government Building",
     "position": {
       "lat": 35.6915718,
       "lng": 139.6970973
@@ -32,7 +32,7 @@
     "area":"tokyo",
     "type": "midpoint",
     "description": "地点の詳細のテキスト",
-    "name": "地点のタイトル1",
+    "name": "Tokyo Metropolitan Government Building",
     "position": {
       "lat": 35.6915718,
       "lng": 139.6970973
@@ -50,7 +50,7 @@
       "lat": 35.6915718,
       "lng": 139.6970973
     },
-    "name": "地点のタイトル1",
+    "name": "Tokyo Metropolitan Government Building",
     "quiz": "クイズチームが作った問題を1つ選んで掲載",
     "quizImage": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen_quiz.jpg",
     "image": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen.jpg"
@@ -64,7 +64,7 @@
       "lat": 35.6915718,
       "lng": 139.6970973
     },
-    "name": "地点のタイトル1",
+    "name": "Tokyo Metropolitan Government Building",
     "quiz": "クイズチームが作った問題を1つ選んで掲載",
     "quizImage": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen_quiz.jpg",
     "image": "../assets/spotImage/Tokyo/Tokyo_Mode_Gakuen.jpg"
