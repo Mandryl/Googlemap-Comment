@@ -16,7 +16,7 @@ router.get('/api/quiz/:id', async (req, res) => {
     const quizdataset = await db.findFrom("tokyo",{"area":req.params.id})
         .catch(error=>{res.status(500).json({message:error})});
     quizdataset.sort(compare)
-
+   
     // Google API Detailの取得
     if(quizdataset){
         for(let i =0;i < quizdataset.length;i++){
@@ -25,25 +25,19 @@ router.get('/api/quiz/:id', async (req, res) => {
                 reviews:""
             };
             // hints get
-            // const {arry, photos} = await placeAPI.createLandmarkInfo(quizdataset[i].name);
-            const {arry, photos} = await placeAPI.createLandmarkInfo("東京駅");
+            // const {arry, photos,latlng} = await placeAPI.createLandmarkInfo(quizdataset[i].name);
+            const {arry, photos} = await placeAPI.createLandmarkInfo(quizdataset[i].name);
             arry.forEach(input => {
                 if(input.reviewComment === null) throw new Error("口コミがありません");
             })
             photos.forEach(input => {
                 if(input.photo === null) throw new Error("写真がありません");
             })
-            console.log(arry)
-            console.log(photos)
-            
+           
             // hints push
             hintsArry["photos"] = photos;
             hintsArry["reviews"] = arry;
-            quizdataset["hints"] = hintsArry;
-            
-            // nearbysearch 
-            // const nearby = await placeAPI.createNearbyLandmarkInfo(quizdataset.position.lat,quizdataset.position.lng);
-            // quizdataset["hints"] = nearByPlace;
+            quizdataset[i]["hints"] = hintsArry;
         }
         res.status(200).json(quizdataset);
     }else{
