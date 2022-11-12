@@ -25,14 +25,17 @@ router.get('/api/quiz/:id', async (req, res) => {
                 reviews:""
             };
             // hints get
-            const {arry, photos,lat,lng} = await placeAPI.createLandmarkInfo(quizdataset[i].name);
+            // const {arry, photos,latlng} = await placeAPI.createLandmarkInfo(quizdataset[i].name);
+            const {arry, photos} = await placeAPI.createLandmarkInfo("東京駅");
             arry.forEach(input => {
-                if(input.reviewComment == null) throw new Error("口コミがありません");
+                if(input.reviewComment === null) throw new Error("口コミがありません");
             })
             photos.forEach(input => {
-                if(input.photo == null) throw new Error("写真がありません");
+                if(input.photo === null) throw new Error("写真がありません");
             })
-
+            console.log(arry)
+            console.log(photos)
+            
             // hints push
             hintsArry["photos"] = photos;
             hintsArry["reviews"] = arry;

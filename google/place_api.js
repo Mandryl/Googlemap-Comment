@@ -38,31 +38,29 @@ exports.createNearbyLandmarkInfo = async (lat, lng) => {
 exports.createLandmarkInfo = async (input) => {
     const arry = []
     const photos = []
-    const latlng = []
     const placeSearch = await googleMap_placeSearch_api(input);
-    console.log(placeSearch);
 
     for(let i = 0; i < placeSearch.candidates.length; i++){
         const placeDetail = await googleMap_placeDetail_api(placeSearch.candidates[i].place_id);
 
-        const lat = placeSearch.candidates[i].geometry.location.lat
-        const lng = placeSearch.candidates[i].geometry.location.lng
-
-        for(let j = 0; j < placeDetail.result.reviews.length; j++){
-            arry.push({
-                reviewComment: placeDetail.result.reviews[j].text
-            })
+        for(let j = 0; j < 3; j++){
+            if(!placeDetail.result.reviews){
+                review = null
+                console.log("口コミがありません");
+            } else{
+                arry.push(placeDetail.result.reviews[j].text)
+            }
         }
-        for(let k = 0; k < placeDetail.result.photos.length; k++){
-            const placePhoto = await googleMap_placePhoto_api(placeDetail.result.photos[k].photo_reference);
-            photos.push({
-                photo: placePhoto.data
-            })
-            // const extensions = placePhoto.headers['content-type'].toString().replace("image/","");
-            // fs.writeFileSync(`hoge${k}.${extensions}`,placePhoto.data , "base64");
+        for(let k = 0; k < 5; k++){
+            if(!placeDetail.result.photos){
+                photoUrl = null
+            } else {
+                const placePhoto = await googleMap_placePhoto_api(placeDetail.result.photos[k].photo_reference);
+                photos.push(placePhoto.request.res.responseUrl)
+            }
         }
     }
-    return {arry, photos,lat,lng}
+    return {arry, photos}
 }
 
 googleMap_placeSearch_api = async(landmark) => {
