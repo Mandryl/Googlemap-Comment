@@ -2,8 +2,7 @@ const express = require("express");
 const logger = require("../common/logger.js");
 const router = express.Router();
 const db = require("../db/db.js");
-const tokyo =  require("../db/initialData/tokyo.json");
-const google  = require("../google/place_api.js");
+const placeAPI  = require("../google/place_api.js");
 
 const compare = ( a, b )=>{
     var r = 0;
