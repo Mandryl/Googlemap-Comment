@@ -45,7 +45,7 @@ exports.createLandmarkInfo = async (input) => {
 
         for(let j = 0; j < 3; j++){
             if(!placeDetail.result.reviews){
-                review = null
+                arry.push(null)
                 console.log("口コミがありません");
             } else{
                 arry.push(placeDetail.result.reviews[j].text)
@@ -53,7 +53,7 @@ exports.createLandmarkInfo = async (input) => {
         }
         for(let k = 0; k < 5; k++){
             if(!placeDetail.result.photos){
-                photoUrl = null
+                photos.push(null)
             } else {
                 const placePhoto = await googleMap_placePhoto_api(placeDetail.result.photos[k].photo_reference);
                 photos.push(placePhoto.request.res.responseUrl)
